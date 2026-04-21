@@ -31,12 +31,15 @@ public class Enemymovement : MonoBehaviour,IDamageable
     public float maxDistance = 9f;
     bool isStopped = false;
     bool isdialoguestarted = false;
+    //using state machine to declare the state of the enemy
+    //depending on the state opening dialogue or attack
 
     enum snakestate
     {
         Patrol, Chase, Dialogue
     }
     snakestate currentstate = snakestate.Patrol;
+    // declare the current state and start checking distance to see any changes that matches the if conditions to switch state.
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Start()
@@ -49,6 +52,7 @@ public class Enemymovement : MonoBehaviour,IDamageable
     // Update is called once per frame
     void Update()
     {
+        //just flip the enemy position based on current position to match the direction of where the player is
         
         Vector3 scale = transform.localScale;
         if (Players.transform.position.x > transform.position.x)
@@ -96,12 +100,13 @@ public class Enemymovement : MonoBehaviour,IDamageable
     }
     void chase()
     {
-
+        // chase the player  but only when the distance is close enough to switch the current state to chase state and run this code
         Vector2 follow = Vector2.MoveTowards(rb.position, Players.transform.position, speed * Time.fixedDeltaTime);
         rb.MovePosition(follow);
     }
     void dialogue()
     {
+        //dialogie system checking if the dialogue system is called or not then running it
         if (!isdialoguestarted)
         {
             isdialoguestarted = true;
@@ -113,6 +118,7 @@ public class Enemymovement : MonoBehaviour,IDamageable
     
 
     }
+    
         IEnumerator Helper()
         {
             while (!Input.GetKeyDown(KeyCode.Return))
@@ -121,6 +127,7 @@ public class Enemymovement : MonoBehaviour,IDamageable
             }
             yield return null;
         }
+    // to check where the user has pressed Enter or not if yes then change dialogue
         IEnumerator NextLine()
         {
             yield return StartCoroutine(Helper());
@@ -136,6 +143,7 @@ public class Enemymovement : MonoBehaviour,IDamageable
             Dialoguetext.text = "Prepare yourself .... Will you accept your Fate";
             yield return StartCoroutine(Helper());
             // Button show
+            //game object that has function run on click 
             yesbutton.SetActive(true);
             nobutton.SetActive(true);
 

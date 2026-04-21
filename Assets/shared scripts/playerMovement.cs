@@ -1,4 +1,5 @@
 using System.Collections;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,8 +9,9 @@ using UnityEngine.UI;
 
 public class playerMovement : MonoBehaviour
 {
-    public Animator animator;
     
+    public Animator animator;
+
     public AudioSource audio;
     public Slider HealthBar;
     public GameObject projectileprefab;
@@ -30,7 +32,7 @@ public class playerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         moveAction.Enable();
 
-
+      
 
     }
 
@@ -55,7 +57,7 @@ public class playerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         rb.position = rb.position + moveInput * Speed * Time.deltaTime;
-        animator.SetFloat("Blend",moveInput.magnitude);
+        animator.SetFloat("Blend", moveInput.magnitude);
 
     }
 
@@ -70,7 +72,7 @@ public class playerMovement : MonoBehaviour
             Debug.Log("Player dies for real ");
             gameoverpanel.SetActive(true);
             gameObject.SetActive(false);
-           
+
             audio.Stop();
 
 
@@ -82,13 +84,14 @@ public class playerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            projectileprefab.SetActive(true );
+            projectileprefab.SetActive(true);
             Instantiate(projectileprefab, (Vector2)transform.position + Vector2.right * 0.5f, Quaternion.identity);
             animator.SetTrigger("attack");
         }
 
     }
 }
+    
 
         
            

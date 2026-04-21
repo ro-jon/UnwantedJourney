@@ -9,6 +9,7 @@ TagManager:
   - PLAYER
   - NAZAR
   - ENEMY
+  - Potions
   layers:
   - Default
   - TransparentFX
