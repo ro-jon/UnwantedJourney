@@ -77,6 +77,7 @@ public class Enemymovement : MonoBehaviour,IDamageable
     }
     private void FixedUpdate()
     {
+        //getting the distance and then checking the distance;
         distance = Vector2.Distance(rb.position, Players.transform.position);
         if (distance <= dialogueRange) { currentstate = snakestate.Dialogue; }
         else if (distance <= chaseRange)
@@ -118,14 +119,21 @@ public class Enemymovement : MonoBehaviour,IDamageable
     
 
     }
+    // 
     
         IEnumerator Helper()
         {
             while (!Input.GetKeyDown(KeyCode.Return))
+            //check whether the Enter button has been pressed or not
+
             {
                 yield return null;
+            // if not pause and check next frame
+
             }
             yield return null;
+        //once confirm the Enter button then next code
+
         }
     // to check where the user has pressed Enter or not if yes then change dialogue
         IEnumerator NextLine()
